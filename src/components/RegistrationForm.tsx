@@ -38,15 +38,6 @@ interface FormErrors {
 }
 
 // ── Constants ──
-const instituicoes = [
-    'Selecione a instituição/escola',
-    'SEMED — Secretaria Municipal de Educação',
-    'E.M. Centro de Ensino Astolfo Seabra de Carvalho',
-    'E.M. Centro de Ensino Isaac Martins',
-    'E.M. Centro de Ensino José Pinheiro Coelho',
-    'Centro Educa Mais',
-    'Outra instituição',
-]
 
 const cargos = [
     'Selecione seu cargo/função',
@@ -168,7 +159,7 @@ export function RegistrationModal() {
         if (!validateCPF(data.cpf)) errs.cpf = 'CPF inválido'
         if (!validateEmail(data.email)) errs.email = 'E-mail inválido'
         if (data.telefone.replace(/\D/g, '').length < 10) errs.telefone = 'Telefone inválido'
-        if (!data.instituicao || data.instituicao === instituicoes[0]) errs.instituicao = 'Selecione uma instituição'
+        if (!data.instituicao.trim() || data.instituicao.trim().length < 3) errs.instituicao = 'Informe a instituição/escola'
         if (!data.cargo || data.cargo === cargos[0]) errs.cargo = 'Selecione seu cargo'
         return errs
     }
@@ -361,20 +352,14 @@ export function RegistrationModal() {
                         {/* Instituição */}
                         <div className="space-y-1.5">
                             <Label htmlFor="instituicao">Instituição/Escola <span className="text-destructive">*</span></Label>
-                            <select
+                            <Input
                                 id="instituicao"
-                                className={`h-10 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] ${errors.instituicao && touched.instituicao
-                                    ? 'border-destructive ring-destructive/20'
-                                    : 'border-input'
-                                    }`}
+                                placeholder="Ex: E.M. Centro de Ensino Isaac Martins"
                                 value={formData.instituicao}
                                 onChange={(e) => handleChange('instituicao', e.target.value)}
                                 onBlur={() => handleBlur('instituicao')}
-                            >
-                                {instituicoes.map((inst, i) => (
-                                    <option key={i} value={i === 0 ? '' : inst}>{inst}</option>
-                                ))}
-                            </select>
+                                aria-invalid={!!errors.instituicao && !!touched.instituicao}
+                            />
                             {touched.instituicao && <FieldError message={errors.instituicao} />}
                         </div>
 
