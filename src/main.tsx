@@ -9,6 +9,7 @@ import { AdminParticipants } from '@/pages/admin/AdminParticipants'
 import { AdminCertificates } from '@/pages/admin/AdminCertificates'
 import { AdminSettings } from '@/pages/admin/AdminSettings'
 import { AdminAvaliacoes } from '@/pages/admin/AdminAvaliacoes'
+import { AdminUsers } from '@/pages/admin/AdminUsers'
 import { AvaliacaoPage } from '@/pages/AvaliacaoPage'
 import { SettingsProvider } from '@/contexts/SettingsContext'
 import './index.css'
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: 'avaliacoes',
         element: <AdminAvaliacoes />,
+      },
+      {
+        path: 'usuarios',
+        element: <AdminUsers />,
       },
     ],
   },

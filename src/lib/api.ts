@@ -155,3 +155,46 @@ export async function fetchAvaliacoesStats() {
 export function getAvaliacoesExportUrl(): string {
     return `${API_URL}/avaliacoes/export`
 }
+
+// ── Admin: Usuários ──
+
+export async function fetchAdmins() {
+    const res = await fetch(`${API_URL}/admins`, { headers: authHeaders() })
+    if (res.status === 401) { adminLogout(); throw new Error('Sessão expirada') }
+    return res.json()
+}
+
+export async function createAdmin(data: { nome: string; email: string; senha: string }) {
+    const res = await fetch(`${API_URL}/admins`, {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify(data),
+    })
+    if (res.status === 401) { adminLogout(); throw new Error('Sessão expirada') }
+    const json = await res.json()
+    if (!res.ok) throw new Error(json.error || 'Erro ao criar administrador')
+    return json
+}
+
+export async function updateAdmin(id: number, data: { nome: string; email: string; senha?: string }) {
+    const res = await fetch(`${API_URL}/admins/${id}`, {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify(data),
+    })
+    if (res.status === 401) { adminLogout(); throw new Error('Sessão expirada') }
+    const json = await res.json()
+    if (!res.ok) throw new Error(json.error || 'Erro ao atualizar administrador')
+    return json
+}
+
+export async function deleteAdmin(id: number) {
+    const res = await fetch(`${API_URL}/admins/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders(),
+    })
+    if (res.status === 401) { adminLogout(); throw new Error('Sessão expirada') }
+    const json = await res.json()
+    if (!res.ok) throw new Error(json.error || 'Erro ao excluir administrador')
+    return json
+}

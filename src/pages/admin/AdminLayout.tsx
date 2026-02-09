@@ -11,6 +11,7 @@ import {
     ChevronLeft,
     ChevronRight,
     Star,
+    UserCog,
 } from 'lucide-react'
 import { useEffect } from 'react'
 
@@ -19,6 +20,7 @@ const navItems = [
     { path: '/admin/participantes', label: 'Participantes', icon: Users },
     { path: '/admin/certificados', label: 'Certificados', icon: Award },
     { path: '/admin/avaliacoes', label: 'Avaliações', icon: Star },
+    { path: '/admin/usuarios', label: 'Usuários', icon: UserCog },
     { path: '/admin/configuracoes', label: 'Configurações', icon: Settings },
 ]
 
