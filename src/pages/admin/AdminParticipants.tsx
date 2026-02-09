@@ -16,8 +16,9 @@ import {
     XCircle,
     Filter,
     Mail,
+    Trash2,
 } from 'lucide-react'
-import { fetchInscricoes, togglePresenca, getExportCSVUrl } from '@/lib/api'
+import { fetchInscricoes, togglePresenca, deleteInscricao, getExportCSVUrl } from '@/lib/api'
 
 interface Participant {
     id: number
@@ -39,6 +40,7 @@ export function AdminParticipants() {
     const [tab, setTab] = useState<TabFilter>('todos')
     const [loading, setLoading] = useState(true)
     const [togglingId, setTogglingId] = useState<number | null>(null)
+    const [deletingId, setDeletingId] = useState<number | null>(null)
 
     useEffect(() => {
         fetchInscricoes()
@@ -100,6 +102,20 @@ export function AdminParticipants() {
                 a.click()
                 URL.revokeObjectURL(url)
             })
+    }
+
+    async function handleDelete(id: number, nome: string) {
+        if (!confirm(`Tem certeza que deseja excluir a inscrição de "${nome}"? Esta ação não pode ser desfeita.`)) return
+        setDeletingId(id)
+        try {
+            await deleteInscricao(id)
+            setParticipants((prev) => prev.filter((p) => p.id !== id))
+        } catch (err) {
+            console.error(err)
+            alert('Erro ao excluir inscrição')
+        } finally {
+            setDeletingId(null)
+        }
     }
 
     if (loading) {
@@ -286,6 +302,20 @@ export function AdminParticipants() {
                                                             <UserCheck className="size-3.5" />
                                                             <span className="hidden sm:inline">Confirmar</span>
                                                         </>
+                                                    )}
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    variant="ghost"
+                                                    onClick={() => handleDelete(p.id, p.nome)}
+                                                    disabled={deletingId === p.id}
+                                                    className="gap-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 transition-all"
+                                                    title="Excluir inscrição"
+                                                >
+                                                    {deletingId === p.id ? (
+                                                        <Spinner className="size-3.5" />
+                                                    ) : (
+                                                        <Trash2 className="size-3.5" />
                                                     )}
                                                 </Button>
                                             </TableCell>

@@ -76,6 +76,17 @@ export function getExportCSVUrl(): string {
     return `${API_URL}/inscricoes/export`
 }
 
+export async function deleteInscricao(id: number) {
+    const res = await fetch(`${API_URL}/inscricoes/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders(),
+    })
+    if (res.status === 401) { adminLogout(); throw new Error('Sessão expirada') }
+    const json = await res.json()
+    if (!res.ok) throw new Error(json.error || 'Erro ao excluir inscrição')
+    return json
+}
+
 // ── Admin: Certificados ──
 
 export async function gerarCertificados() {
