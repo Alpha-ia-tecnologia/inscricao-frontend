@@ -1,0 +1,3 @@
+﻿src/pages/admin/AdminCertificates.tsx(4,1): error TS6133: 'Badge' is declared but its value is never read.
+src/pages/admin/AdminLayout.tsx(3,1): error TS6133: 'Button' is declared but its value is never read.
+src/pages/admin/AdminParticipants.tsx(3,41): error TS6133: 'CardTitle' is declared but its value is never read.
