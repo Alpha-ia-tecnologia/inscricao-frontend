@@ -285,225 +285,227 @@ function RegistrationFormInner({ showSuccess, closeModal, setShowSuccess, eventN
 
     // ── Form modal ──
     return (
-        <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 overflow-y-auto"
-            onClick={(e) => e.target === e.currentTarget && handleClose()}
-        >
-            <Card className="w-full max-w-lg shadow-2xl animate-scale-in my-4 relative">
-                {/* Close button */}
-                <button
-                    onClick={handleClose}
-                    className="absolute top-4 right-4 flex size-8 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors cursor-pointer z-10"
-                >
-                    <X className="size-4" />
-                </button>
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-sm">
+            <div
+                className="flex min-h-full items-center justify-center p-4"
+                onClick={(e) => e.target === e.currentTarget && handleClose()}
+            >
+                <Card className="w-full max-w-lg shadow-2xl animate-scale-in relative">
+                    {/* Close button */}
+                    <button
+                        onClick={handleClose}
+                        className="absolute top-4 right-4 flex size-8 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors cursor-pointer z-10"
+                    >
+                        <X className="size-4" />
+                    </button>
 
-                <CardHeader className="pr-12">
-                    <div className="flex items-center gap-3 mb-1">
-                        <img src="/images/brasao-tuntum.png" alt="Brasão de Tuntum" className="h-14 w-auto" />
-                        <div>
-                            <CardTitle className="text-xl">Formulário de Inscrição</CardTitle>
-                            <CardDescription>{eventName} — Tuntum, MA</CardDescription>
-                        </div>
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-4">
-                        {/* Nome */}
-                        <div className="space-y-1.5">
-                            <Label htmlFor="nome">Nome Completo <span className="text-destructive">*</span></Label>
-                            <Input
-                                id="nome"
-                                placeholder="Ex: Maria da Silva Santos"
-                                value={formData.nome}
-                                onChange={(e) => handleChange('nome', e.target.value)}
-                                onBlur={() => handleBlur('nome')}
-                                aria-invalid={!!errors.nome && !!touched.nome}
-                                autoComplete="name"
-                            />
-                            {touched.nome && <FieldError message={errors.nome} />}
-                        </div>
-
-                        {/* CPF + Telefone row */}
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            <div className="space-y-1.5">
-                                <Label htmlFor="cpf">CPF <span className="text-destructive">*</span></Label>
-                                <Input
-                                    id="cpf"
-                                    placeholder="000.000.000-00"
-                                    value={formData.cpf}
-                                    onChange={(e) => handleChange('cpf', e.target.value)}
-                                    onBlur={() => handleBlur('cpf')}
-                                    aria-invalid={!!errors.cpf && !!touched.cpf}
-                                    inputMode="numeric"
-                                />
-                                {touched.cpf && <FieldError message={errors.cpf} />}
-                            </div>
-                            <div className="space-y-1.5">
-                                <Label htmlFor="telefone">Telefone/WhatsApp <span className="text-destructive">*</span></Label>
-                                <Input
-                                    id="telefone"
-                                    placeholder="(99) 99999-0000"
-                                    value={formData.telefone}
-                                    onChange={(e) => handleChange('telefone', e.target.value)}
-                                    onBlur={() => handleBlur('telefone')}
-                                    aria-invalid={!!errors.telefone && !!touched.telefone}
-                                    inputMode="tel"
-                                />
-                                {touched.telefone && <FieldError message={errors.telefone} />}
+                    <CardHeader className="pr-12">
+                        <div className="flex items-center gap-3 mb-1">
+                            <img src="/images/brasao-tuntum.png" alt="Brasão de Tuntum" className="h-14 w-auto" />
+                            <div>
+                                <CardTitle className="text-xl">Formulário de Inscrição</CardTitle>
+                                <CardDescription>{eventName} — Tuntum, MA</CardDescription>
                             </div>
                         </div>
+                    </CardHeader>
+                    <CardContent>
+                        <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-4">
+                            {/* Nome */}
+                            <div className="space-y-1.5">
+                                <Label htmlFor="nome">Nome Completo <span className="text-destructive">*</span></Label>
+                                <Input
+                                    id="nome"
+                                    placeholder="Ex: Maria da Silva Santos"
+                                    value={formData.nome}
+                                    onChange={(e) => handleChange('nome', e.target.value)}
+                                    onBlur={() => handleBlur('nome')}
+                                    aria-invalid={!!errors.nome && !!touched.nome}
+                                    autoComplete="name"
+                                />
+                                {touched.nome && <FieldError message={errors.nome} />}
+                            </div>
 
-                        {/* Email */}
-                        <div className="space-y-1.5">
-                            <Label htmlFor="email">E-mail <span className="text-destructive">*</span></Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="seuemail@exemplo.com"
-                                value={formData.email}
-                                onChange={(e) => handleChange('email', e.target.value)}
-                                onBlur={() => handleBlur('email')}
-                                aria-invalid={!!errors.email && !!touched.email}
-                                autoComplete="email"
-                            />
-                            {touched.email && <FieldError message={errors.email} />}
-                        </div>
+                            {/* CPF + Telefone row */}
+                            <div className="grid gap-4 sm:grid-cols-2">
+                                <div className="space-y-1.5">
+                                    <Label htmlFor="cpf">CPF <span className="text-destructive">*</span></Label>
+                                    <Input
+                                        id="cpf"
+                                        placeholder="000.000.000-00"
+                                        value={formData.cpf}
+                                        onChange={(e) => handleChange('cpf', e.target.value)}
+                                        onBlur={() => handleBlur('cpf')}
+                                        aria-invalid={!!errors.cpf && !!touched.cpf}
+                                        inputMode="numeric"
+                                    />
+                                    {touched.cpf && <FieldError message={errors.cpf} />}
+                                </div>
+                                <div className="space-y-1.5">
+                                    <Label htmlFor="telefone">Telefone/WhatsApp <span className="text-destructive">*</span></Label>
+                                    <Input
+                                        id="telefone"
+                                        placeholder="(99) 99999-0000"
+                                        value={formData.telefone}
+                                        onChange={(e) => handleChange('telefone', e.target.value)}
+                                        onBlur={() => handleBlur('telefone')}
+                                        aria-invalid={!!errors.telefone && !!touched.telefone}
+                                        inputMode="tel"
+                                    />
+                                    {touched.telefone && <FieldError message={errors.telefone} />}
+                                </div>
+                            </div>
 
-                        {/* Instituição */}
-                        <div className="space-y-1.5">
-                            <Label htmlFor="instituicao">Instituição/Escola <span className="text-destructive">*</span></Label>
-                            <Input
-                                id="instituicao"
-                                placeholder="Ex: E.M. Centro de Ensino Isaac Martins"
-                                value={formData.instituicao}
-                                onChange={(e) => handleChange('instituicao', e.target.value)}
-                                onBlur={() => handleBlur('instituicao')}
-                                aria-invalid={!!errors.instituicao && !!touched.instituicao}
-                            />
-                            {touched.instituicao && <FieldError message={errors.instituicao} />}
-                        </div>
+                            {/* Email */}
+                            <div className="space-y-1.5">
+                                <Label htmlFor="email">E-mail <span className="text-destructive">*</span></Label>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="seuemail@exemplo.com"
+                                    value={formData.email}
+                                    onChange={(e) => handleChange('email', e.target.value)}
+                                    onBlur={() => handleBlur('email')}
+                                    aria-invalid={!!errors.email && !!touched.email}
+                                    autoComplete="email"
+                                />
+                                {touched.email && <FieldError message={errors.email} />}
+                            </div>
 
-                        {/* Cargo */}
-                        <div className="space-y-1.5">
-                            <Label htmlFor="cargo">Cargo/Função <span className="text-destructive">*</span></Label>
-                            <select
-                                id="cargo"
-                                className={`h-10 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] ${errors.cargo && touched.cargo
-                                    ? 'border-destructive ring-destructive/20'
-                                    : 'border-input'
-                                    }`}
-                                value={formData.cargo}
-                                onChange={(e) => handleChange('cargo', e.target.value)}
-                                onBlur={() => handleBlur('cargo')}
-                            >
-                                {cargos.map((cargo, i) => (
-                                    <option key={i} value={i === 0 ? '' : cargo}>{cargo}</option>
-                                ))}
-                            </select>
-                            {touched.cargo && <FieldError message={errors.cargo} />}
-                        </div>
+                            {/* Instituição */}
+                            <div className="space-y-1.5">
+                                <Label htmlFor="instituicao">Instituição/Escola <span className="text-destructive">*</span></Label>
+                                <Input
+                                    id="instituicao"
+                                    placeholder="Ex: E.M. Centro de Ensino Isaac Martins"
+                                    value={formData.instituicao}
+                                    onChange={(e) => handleChange('instituicao', e.target.value)}
+                                    onBlur={() => handleBlur('instituicao')}
+                                    aria-invalid={!!errors.instituicao && !!touched.instituicao}
+                                />
+                                {touched.instituicao && <FieldError message={errors.instituicao} />}
+                            </div>
 
-                        {/* Dia de Participação */}
-                        <div className="space-y-2">
-                            <Label>Dia de Participação <span className="text-destructive">*</span></Label>
-                            <div className="grid grid-cols-3 gap-2">
-                                {[
-                                    { value: 'dia1', label: '1º Dia', sub: 'Gestores, Coordenadores e Equipe Técnica da SEMED' },
-                                    { value: 'dia2', label: '2º Dia', sub: 'Professores, Gestores, Coordenadores e Equipe da SEMED' },
-                                    { value: 'ambos', label: 'Ambos', sub: 'Todos os dias' },
-                                ].map((opt) => {
-                                    const diaKey = opt.value as 'dia1' | 'dia2' | 'ambos'
-                                    let esgotado = false
-                                    let restantes: number | null = null
+                            {/* Cargo */}
+                            <div className="space-y-1.5">
+                                <Label htmlFor="cargo">Cargo/Função <span className="text-destructive">*</span></Label>
+                                <select
+                                    id="cargo"
+                                    className={`h-10 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] ${errors.cargo && touched.cargo
+                                        ? 'border-destructive ring-destructive/20'
+                                        : 'border-input'
+                                        }`}
+                                    value={formData.cargo}
+                                    onChange={(e) => handleChange('cargo', e.target.value)}
+                                    onBlur={() => handleBlur('cargo')}
+                                >
+                                    {cargos.map((cargo, i) => (
+                                        <option key={i} value={i === 0 ? '' : cargo}>{cargo}</option>
+                                    ))}
+                                </select>
+                                {touched.cargo && <FieldError message={errors.cargo} />}
+                            </div>
 
-                                    if (vagas) {
-                                        if (diaKey === 'dia1') {
-                                            esgotado = vagas.dia1.disponivel <= 0
-                                            restantes = vagas.dia1.disponivel
-                                        } else if (diaKey === 'dia2') {
-                                            esgotado = vagas.dia2.disponivel <= 0
-                                            restantes = vagas.dia2.disponivel
-                                        } else {
-                                            // ambos: disabled if either day is full
-                                            esgotado = vagas.dia1.disponivel <= 0 || vagas.dia2.disponivel <= 0
-                                            restantes = Math.min(vagas.dia1.disponivel, vagas.dia2.disponivel)
+                            {/* Dia de Participação */}
+                            <div className="space-y-2">
+                                <Label>Dia de Participação <span className="text-destructive">*</span></Label>
+                                <div className="grid grid-cols-3 gap-2">
+                                    {[
+                                        { value: 'dia1', label: '1º Dia', sub: 'Gestores, Coordenadores e Equipe Técnica da SEMED' },
+                                        { value: 'dia2', label: '2º Dia', sub: 'Professores, Gestores, Coordenadores e Equipe da SEMED' },
+                                        { value: 'ambos', label: 'Ambos', sub: 'Todos os dias' },
+                                    ].map((opt) => {
+                                        const diaKey = opt.value as 'dia1' | 'dia2' | 'ambos'
+                                        let esgotado = false
+                                        let restantes: number | null = null
+
+                                        if (vagas) {
+                                            if (diaKey === 'dia1') {
+                                                esgotado = vagas.dia1.disponivel <= 0
+                                                restantes = vagas.dia1.disponivel
+                                            } else if (diaKey === 'dia2') {
+                                                esgotado = vagas.dia2.disponivel <= 0
+                                                restantes = vagas.dia2.disponivel
+                                            } else {
+                                                // ambos: disabled if either day is full
+                                                esgotado = vagas.dia1.disponivel <= 0 || vagas.dia2.disponivel <= 0
+                                                restantes = Math.min(vagas.dia1.disponivel, vagas.dia2.disponivel)
+                                            }
                                         }
-                                    }
 
-                                    return (
-                                        <button
-                                            key={opt.value}
-                                            type="button"
-                                            disabled={esgotado}
-                                            onClick={() => {
-                                                if (esgotado) return
-                                                handleChange('dia_participacao', opt.value)
-                                                setTouched((prev) => ({ ...prev, dia_participacao: true }))
-                                            }}
-                                            className={`cursor-pointer relative flex flex-col items-center gap-1 rounded-lg border-2 p-3 text-center transition-all duration-200 ${esgotado
-                                                ? 'border-destructive/30 bg-destructive/5 opacity-60 cursor-not-allowed'
-                                                : formData.dia_participacao === opt.value
-                                                    ? 'border-primary bg-primary text-white shadow-lg shadow-primary/30 scale-[1.03]'
-                                                    : 'border-border bg-card hover:border-primary/30'
-                                                } ${errors.dia_participacao && touched.dia_participacao && !formData.dia_participacao ? 'border-destructive' : ''}`}
-                                        >
-                                            {esgotado && (
-                                                <span className="absolute -top-2 -right-2 rounded-full bg-destructive px-2 py-0.5 text-[10px] font-bold text-white shadow-sm">
-                                                    Esgotado
-                                                </span>
-                                            )}
-                                            {!esgotado && formData.dia_participacao === opt.value && (
-                                                <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full bg-white shadow-sm">
-                                                    <Check className="size-3 text-primary" />
-                                                </span>
-                                            )}
-                                            <CalendarDays className={`size-5 ${esgotado ? 'text-destructive/50' : formData.dia_participacao === opt.value ? 'text-white' : 'text-muted-foreground'
-                                                }`} />
-                                            <span className={`text-sm font-bold ${esgotado ? 'text-destructive/60' : formData.dia_participacao === opt.value ? 'text-white' : 'text-foreground'
-                                                }`}>{opt.label}</span>
-                                            <span className={`text-xs leading-tight ${esgotado ? 'text-destructive/40' : formData.dia_participacao === opt.value ? 'text-white/80' : 'text-muted-foreground'
-                                                }`}>{opt.sub}</span>
-                                            {vagas && !esgotado && restantes !== null && (
-                                                <span className={`text-[10px] font-medium mt-0.5 ${formData.dia_participacao === opt.value ? 'text-white/70' : 'text-primary/70'
-                                                    }`}>
-                                                    {restantes} {restantes === 1 ? 'vaga restante' : 'vagas restantes'}
-                                                </span>
-                                            )}
-                                            {esgotado && (
-                                                <span className="text-[10px] font-bold text-destructive mt-0.5">
-                                                    Vagas Esgotadas
-                                                </span>
-                                            )}
-                                        </button>
-                                    )
-                                })}
+                                        return (
+                                            <button
+                                                key={opt.value}
+                                                type="button"
+                                                disabled={esgotado}
+                                                onClick={() => {
+                                                    if (esgotado) return
+                                                    handleChange('dia_participacao', opt.value)
+                                                    setTouched((prev) => ({ ...prev, dia_participacao: true }))
+                                                }}
+                                                className={`cursor-pointer relative flex flex-col items-center gap-1 rounded-lg border-2 p-3 text-center transition-all duration-200 ${esgotado
+                                                    ? 'border-destructive/30 bg-destructive/5 opacity-60 cursor-not-allowed'
+                                                    : formData.dia_participacao === opt.value
+                                                        ? 'border-primary bg-primary text-white shadow-lg shadow-primary/30 scale-[1.03]'
+                                                        : 'border-border bg-card hover:border-primary/30'
+                                                    } ${errors.dia_participacao && touched.dia_participacao && !formData.dia_participacao ? 'border-destructive' : ''}`}
+                                            >
+                                                {esgotado && (
+                                                    <span className="absolute -top-2 -right-2 rounded-full bg-destructive px-2 py-0.5 text-[10px] font-bold text-white shadow-sm">
+                                                        Esgotado
+                                                    </span>
+                                                )}
+                                                {!esgotado && formData.dia_participacao === opt.value && (
+                                                    <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full bg-white shadow-sm">
+                                                        <Check className="size-3 text-primary" />
+                                                    </span>
+                                                )}
+                                                <CalendarDays className={`size-5 ${esgotado ? 'text-destructive/50' : formData.dia_participacao === opt.value ? 'text-white' : 'text-muted-foreground'
+                                                    }`} />
+                                                <span className={`text-sm font-bold ${esgotado ? 'text-destructive/60' : formData.dia_participacao === opt.value ? 'text-white' : 'text-foreground'
+                                                    }`}>{opt.label}</span>
+                                                <span className={`text-xs leading-tight ${esgotado ? 'text-destructive/40' : formData.dia_participacao === opt.value ? 'text-white/80' : 'text-muted-foreground'
+                                                    }`}>{opt.sub}</span>
+                                                {vagas && !esgotado && restantes !== null && (
+                                                    <span className={`text-[10px] font-medium mt-0.5 ${formData.dia_participacao === opt.value ? 'text-white/70' : 'text-primary/70'
+                                                        }`}>
+                                                        {restantes} {restantes === 1 ? 'vaga restante' : 'vagas restantes'}
+                                                    </span>
+                                                )}
+                                                {esgotado && (
+                                                    <span className="text-[10px] font-bold text-destructive mt-0.5">
+                                                        Vagas Esgotadas
+                                                    </span>
+                                                )}
+                                            </button>
+                                        )
+                                    })}
+                                </div>
+                                {touched.dia_participacao && <FieldError message={errors.dia_participacao} />}
                             </div>
-                            {touched.dia_participacao && <FieldError message={errors.dia_participacao} />}
-                        </div>
 
-                        {/* Submit */}
-                        <Button type="submit" size="xl" className="w-full" disabled={isSubmitting}>
-                            {isSubmitting ? (
-                                <>
-                                    <Spinner className="size-4" />
-                                    Processando inscrição...
-                                </>
-                            ) : (
-                                'Confirmar Inscrição →'
-                            )}
-                        </Button>
+                            {/* Submit */}
+                            <Button type="submit" size="xl" className="w-full" disabled={isSubmitting}>
+                                {isSubmitting ? (
+                                    <>
+                                        <Spinner className="size-4" />
+                                        Processando inscrição...
+                                    </>
+                                ) : (
+                                    'Confirmar Inscrição →'
+                                )}
+                            </Button>
 
-                        <p className="text-center text-xs text-muted-foreground">
-                            Ao se inscrever, você concorda com nossa{' '}
-                            <a href="#" className="text-primary underline underline-offset-2 hover:text-primary/80">
-                                política de privacidade
-                            </a>.
-                            Seus dados são protegidos.
-                        </p>
-                    </form>
-                </CardContent>
-            </Card>
+                            <p className="text-center text-xs text-muted-foreground">
+                                Ao se inscrever, você concorda com nossa{' '}
+                                <a href="#" className="text-primary underline underline-offset-2 hover:text-primary/80">
+                                    política de privacidade
+                                </a>.
+                                Seus dados são protegidos.
+                            </p>
+                        </form>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     )
 }
