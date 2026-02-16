@@ -9,13 +9,14 @@ import {
     Users,
     PenLine,
     ArrowRight,
+    Sparkles,
 } from 'lucide-react'
 
 export function Hero() {
     const { openModal } = useRegistrationModal()
 
     return (
-        <section className="relative min-h-screen flex items-center overflow-hidden">
+        <section className="relative flex items-center overflow-hidden pt-16">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <img
@@ -33,10 +34,10 @@ export function Hero() {
                 <div className="absolute top-1/4 right-10 size-40 rounded-full bg-gold/5 blur-2xl animate-float" />
             </div >
 
-            <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 lg:py-32 w-full">
-                <div className="grid gap-10 lg:grid-cols-2 items-center">
+            <div className="relative z-10 mx-auto max-w-7xl px-6 py-12 lg:py-14 w-full">
+                <div className="grid gap-4 lg:grid-cols-2 items-center">
                     {/* Left: text content */}
-                    <div className="space-y-6 text-white">
+                    <div className="space-y-3 text-white">
                         {/* Institution badge */}
                         <div>
                             <Badge className="bg-white/15 text-white border-white/20 backdrop-blur-sm">
@@ -45,13 +46,13 @@ export function Hero() {
                         </div>
 
                         <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-                            Jornada<br />Pedagógica
+                            I Simpósio de<br />Educação de Tuntum
                             <span className="block text-gold mt-1">2026</span>
                         </h1>
 
                         <p className="max-w-lg text-lg text-white/80 leading-relaxed">
-                            Formação continuada para educadores de Tuntum-MA. Palestras, oficinas e
-                            troca de experiências para fortalecer a educação municipal.
+                            <Sparkles className="inline size-4 text-gold mr-1" />
+                            Seja muito bem-vindo(a) ao nosso evento! Este encontro foi preparado com carinho para promover reflexão, aprendizado e troca de experiências. Que estes dias sejam de inspiração, crescimento profissional e fortalecimento da nossa missão de educar.
                         </p>
 
                         {/* Info pills */}
@@ -62,13 +63,18 @@ export function Hero() {
                             </span>
                             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white/90">
                                 <MapPin className="size-4 text-gold" />
-                                Tuntum, MA
+                                CT Centro de Treinamento Esportivo
                             </span>
                             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white/90">
                                 <Clock className="size-4 text-gold" />
-                                40 horas
+                                2 dias de evento
                             </span>
                         </div>
+
+                        {/* Impact phrase */}
+                        <p className="text-gold/90 italic text-sm font-medium border-l-2 border-gold/40 pl-4">
+                            "Educação é a tecnologia mais poderosa para transformar realidades."
+                        </p>
 
                         {/* CTA buttons */}
                         <div className="flex flex-wrap gap-4 pt-2">
@@ -92,32 +98,32 @@ export function Hero() {
                         </div>
                     </div>
 
-                    {/* Right: glassmorphism stats card with cityscape */}
-                    <div className="hidden lg:block space-y-6">
-                        <Card className="border-white/10 bg-white/10 backdrop-blur-md shadow-2xl">
-                            <CardContent className="p-6">
-                                {/* Mini cityscape illustration */}
-                                <div className="rounded-xl overflow-hidden mb-6 border border-white/10">
+                    {/* Right: Event banner card */}
+                    <div className="hidden lg:flex justify-end">
+                        <Card className="border-white/10 bg-white/10 backdrop-blur-md shadow-2xl max-w-xs">
+                            <CardContent className="p-4">
+                                {/* Event banner */}
+                                <div className="rounded-lg overflow-hidden mb-4 border border-white/10">
                                     <img
-                                        src="/images/formacao-professores.jpg"
-                                        alt="Momento formativo com educadores"
-                                        className="w-full h-44 object-cover"
+                                        src="/images/banner-evento.png"
+                                        alt="Banner I Simpósio de Educação de Tuntum 2026"
+                                        className="w-full h-auto object-contain"
                                     />
                                 </div>
 
                                 {/* Stats */}
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="rounded-xl bg-white/10 p-4 text-center">
-                                        <p className="text-3xl font-bold text-white">40h</p>
-                                        <p className="text-xs text-white/60">Carga Horária</p>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="rounded-lg bg-white/10 p-3 text-center">
+                                        <p className="text-2xl font-bold text-white">2</p>
+                                        <p className="text-xs text-white/60">Dias de Evento</p>
                                     </div>
-                                    <div className="rounded-xl bg-white/10 p-4 text-center">
-                                        <Users className="size-6 text-gold mx-auto mb-1" />
+                                    <div className="rounded-lg bg-white/10 p-3 text-center">
+                                        <Users className="size-5 text-gold mx-auto mb-1" />
                                         <p className="text-xs text-white/60">Vagas Limitadas</p>
                                     </div>
-                                    <div className="col-span-2 rounded-xl bg-white/10 p-4 text-center">
-                                        <p className="text-sm font-medium text-gold">✦ Certificado Digital Incluso</p>
-                                        <p className="text-xs text-white/50 mt-1">Enviado automaticamente por e-mail</p>
+                                    <div className="col-span-2 rounded-lg bg-white/10 p-3 text-center">
+                                        <p className="text-sm font-medium text-gold">✦ Educação 5.0</p>
+                                        <p className="text-xs text-white/50 mt-0.5">Tecnologia, Humanização e Inovação</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -126,15 +132,6 @@ export function Hero() {
                 </div>
             </div>
 
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-                <div className="flex flex-col items-center gap-2">
-                    <span className="text-white/40 text-xs">Rolar para baixo</span>
-                    <div className="size-5 rounded-full border-2 border-white/30 flex items-center justify-center">
-                        <div className="size-1.5 rounded-full bg-white/50 animate-bounce" />
-                    </div>
-                </div>
-            </div>
         </section >
     )
 }

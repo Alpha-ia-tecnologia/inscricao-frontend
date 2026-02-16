@@ -15,7 +15,7 @@ function authHeaders(): HeadersInit {
 // ── Public ──
 
 export async function submitRegistration(data: {
-    nome: string; cpf: string; email: string; telefone: string; instituicao: string; cargo: string
+    nome: string; cpf: string; email: string; telefone: string; instituicao: string; cargo: string; dia_participacao: string
 }) {
     const res = await fetch(`${API_URL}/inscricoes`, {
         method: 'POST',
@@ -25,6 +25,14 @@ export async function submitRegistration(data: {
     const json = await res.json()
     if (!res.ok) throw new Error(json.error || 'Erro ao realizar inscrição')
     return json
+}
+
+export async function fetchVagas(): Promise<{
+    dia1: { total: number; max: number; disponivel: number }
+    dia2: { total: number; max: number; disponivel: number }
+}> {
+    const res = await fetch(`${API_URL}/inscricoes/vagas`)
+    return res.json()
 }
 
 // ── Auth ──

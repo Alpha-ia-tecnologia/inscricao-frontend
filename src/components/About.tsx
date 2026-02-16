@@ -7,17 +7,17 @@ import {
     Users,
     Award,
     Lightbulb,
-    Target,
+    Cpu,
     GraduationCap,
 } from 'lucide-react'
 
 const highlights = [
-    { icon: BookOpen, title: 'Formação Continuada', desc: 'Atualização metodológica e pedagógica para educadores' },
-    { icon: Users, title: 'Troca de Experiências', desc: 'Networking com profissionais de toda a rede municipal' },
-    { icon: Award, title: 'Certificação', desc: 'Certificado digital de 40 horas com validade nacional' },
-    { icon: Lightbulb, title: 'Inovação', desc: 'Novas ferramentas e tecnologias para a sala de aula' },
-    { icon: Target, title: 'BNCC na Prática', desc: 'Estratégias para alinhar o currículo à Base Nacional Comum' },
-    { icon: GraduationCap, title: 'Oficinas', desc: 'Atividades práticas e aplicáveis ao dia-a-dia escolar' },
+    { icon: BookOpen, title: 'Formação Continuada', desc: 'Atualização em liderança, gestão estratégica e competências do gestor moderno' },
+    { icon: Users, title: 'Troca de Experiências', desc: 'Networking com profissionais de toda a rede municipal de ensino' },
+    { icon: Award, title: 'Certificação', desc: 'Certificado digital com validade nacional para todos os participantes' },
+    { icon: Lightbulb, title: 'Humanização Digital', desc: 'Competências socioemocionais como base da Educação 5.0' },
+    { icon: Cpu, title: 'Inteligência Artificial', desc: 'Ferramentas de IA na personalização do ensino e cultura digital' },
+    { icon: GraduationCap, title: 'Educação 5.0', desc: 'Integração entre tecnologia, humanização e inovação pedagógica' },
 ]
 
 export function About() {
@@ -38,13 +38,14 @@ export function About() {
                                 </Badge>
                             </div>
                             <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl leading-tight">
-                                Transformando a Educação <br />
-                                <span className="text-primary">Através do Conhecimento</span>
+                                Educação 5.0 <br />
+                                <span className="text-primary">Tecnologia, Humanização e Inovação</span>
                             </h2>
                             <p className="text-muted-foreground text-lg leading-relaxed">
-                                A Jornada Pedagógica de Tuntum-MA é o marco inicial do ano letivo de 2026.
-                                Um momento dedicado a fortalecer nossa rede de ensino, alinhando estratégias
-                                e renovando o compromisso com uma educação pública de excelência.
+                                O I Simpósio de Educação de Tuntum 2026 é um encontro preparado com carinho para promover
+                                reflexão, aprendizado e troca de experiências. São dois dias dedicados a fortalecer nossa
+                                rede de ensino, com palestrantes renomados e temas que conectam tecnologia, humanização e
+                                inovação pedagógica.
                             </p>
                         </div>
 
@@ -82,7 +83,7 @@ export function About() {
                             {/* Floating Stats or Caption */}
                             <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <p className="font-display font-bold text-lg">{eventName}</p>
-                                <p className="text-sm text-white/80">Construindo o futuro da educação municipal</p>
+                                <p className="text-sm text-white/80">Educação é a tecnologia mais poderosa para transformar realidades.</p>
                             </div>
                         </div>
 

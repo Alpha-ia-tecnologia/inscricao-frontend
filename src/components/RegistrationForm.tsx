@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import type { FormEvent } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Spinner } from '@/components/ui/spinner'
 import { formatCPF, formatPhone, validateCPF, validateEmail } from '@/lib/validators'
-import { submitRegistration } from '@/lib/api'
+import { submitRegistration, fetchVagas } from '@/lib/api'
 import { useRegistrationModal } from '@/hooks/use-registration-modal'
 import { useSettings } from '@/contexts/SettingsContext'
 import {
@@ -16,6 +16,7 @@ import {
     Check,
     AlertTriangle,
     X,
+    CalendarDays,
 } from 'lucide-react'
 
 // ── Types ──
@@ -26,6 +27,7 @@ interface FormData {
     telefone: string
     instituicao: string
     cargo: string
+    dia_participacao: string
 }
 
 interface FormErrors {
@@ -35,6 +37,7 @@ interface FormErrors {
     telefone?: string
     instituicao?: string
     cargo?: string
+    dia_participacao?: string
 }
 
 // ── Constants ──
@@ -144,7 +147,7 @@ export function RegistrationModal() {
     const { eventName } = useSettings()
     const formRef = useRef<HTMLFormElement>(null)
     const [formData, setFormData] = useState<FormData>({
-        nome: '', cpf: '', email: '', telefone: '', instituicao: '', cargo: '',
+        nome: '', cpf: '', email: '', telefone: '', instituicao: '', cargo: '', dia_participacao: '',
     })
     const [errors, setErrors] = useState<FormErrors>({})
     const [touched, setTouched] = useState<Record<string, boolean>>({})
@@ -152,6 +155,23 @@ export function RegistrationModal() {
     const [showSuccess, setShowSuccess] = useState(false)
 
     if (!isOpen && !showSuccess) return null
+
+    return <RegistrationFormInner isOpen={isOpen} showSuccess={showSuccess} closeModal={closeModal} setShowSuccess={setShowSuccess} eventName={eventName} formRef={formRef} formData={formData} setFormData={setFormData} errors={errors} setErrors={setErrors} touched={touched} setTouched={setTouched} isSubmitting={isSubmitting} setIsSubmitting={setIsSubmitting} />
+}
+
+// Inner component that uses hooks freely
+function RegistrationFormInner({ showSuccess, closeModal, setShowSuccess, eventName, formRef, formData, setFormData, errors, setErrors, touched, setTouched, isSubmitting, setIsSubmitting }: {
+    isOpen: boolean; showSuccess: boolean; closeModal: () => void; setShowSuccess: (v: boolean) => void; eventName: string; formRef: React.RefObject<HTMLFormElement | null>;
+    formData: FormData; setFormData: (v: FormData | ((prev: FormData) => FormData)) => void;
+    errors: FormErrors; setErrors: (v: FormErrors | ((prev: FormErrors) => FormErrors)) => void;
+    touched: Record<string, boolean>; setTouched: (v: Record<string, boolean> | ((prev: Record<string, boolean>) => Record<string, boolean>)) => void;
+    isSubmitting: boolean; setIsSubmitting: (v: boolean) => void;
+}) {
+    const [vagas, setVagas] = useState<{ dia1: { total: number; max: number; disponivel: number }; dia2: { total: number; max: number; disponivel: number } } | null>(null)
+
+    useEffect(() => {
+        fetchVagas().then(setVagas).catch(console.error)
+    }, [])
 
     function validate(data: FormData): FormErrors {
         const errs: FormErrors = {}
@@ -161,6 +181,7 @@ export function RegistrationModal() {
         if (data.telefone.replace(/\D/g, '').length < 10) errs.telefone = 'Telefone inválido'
         if (!data.instituicao.trim() || data.instituicao.trim().length < 3) errs.instituicao = 'Informe a instituição/escola'
         if (!data.cargo || data.cargo === cargos[0]) errs.cargo = 'Selecione seu cargo'
+        if (!data.dia_participacao) errs.dia_participacao = 'Selecione o dia de participação'
         return errs
     }
 
@@ -186,7 +207,7 @@ export function RegistrationModal() {
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault()
-        const allTouched = { nome: true, cpf: true, email: true, telefone: true, instituicao: true, cargo: true }
+        const allTouched = { nome: true, cpf: true, email: true, telefone: true, instituicao: true, cargo: true, dia_participacao: true }
         setTouched(allTouched)
         const validationErrors = validate(formData)
         setErrors(validationErrors)
@@ -211,7 +232,7 @@ export function RegistrationModal() {
 
     function handleCloseSuccess() {
         setShowSuccess(false)
-        setFormData({ nome: '', cpf: '', email: '', telefone: '', instituicao: '', cargo: '' })
+        setFormData({ nome: '', cpf: '', email: '', telefone: '', instituicao: '', cargo: '', dia_participacao: '' })
         setTouched({})
         setErrors({})
         closeModal()
@@ -381,6 +402,84 @@ export function RegistrationModal() {
                                 ))}
                             </select>
                             {touched.cargo && <FieldError message={errors.cargo} />}
+                        </div>
+
+                        {/* Dia de Participação */}
+                        <div className="space-y-2">
+                            <Label>Dia de Participação <span className="text-destructive">*</span></Label>
+                            <div className="grid grid-cols-3 gap-2">
+                                {[
+                                    { value: 'dia1', label: '1º Dia', sub: 'Gestores, Coordenadores e Equipe Técnica da SEMED' },
+                                    { value: 'dia2', label: '2º Dia', sub: 'Professores, Gestores, Coordenadores e Equipe da SEMED' },
+                                    { value: 'ambos', label: 'Ambos', sub: 'Todos os dias' },
+                                ].map((opt) => {
+                                    const diaKey = opt.value as 'dia1' | 'dia2' | 'ambos'
+                                    let esgotado = false
+                                    let restantes: number | null = null
+
+                                    if (vagas) {
+                                        if (diaKey === 'dia1') {
+                                            esgotado = vagas.dia1.disponivel <= 0
+                                            restantes = vagas.dia1.disponivel
+                                        } else if (diaKey === 'dia2') {
+                                            esgotado = vagas.dia2.disponivel <= 0
+                                            restantes = vagas.dia2.disponivel
+                                        } else {
+                                            // ambos: disabled if either day is full
+                                            esgotado = vagas.dia1.disponivel <= 0 || vagas.dia2.disponivel <= 0
+                                            restantes = Math.min(vagas.dia1.disponivel, vagas.dia2.disponivel)
+                                        }
+                                    }
+
+                                    return (
+                                        <button
+                                            key={opt.value}
+                                            type="button"
+                                            disabled={esgotado}
+                                            onClick={() => {
+                                                if (esgotado) return
+                                                handleChange('dia_participacao', opt.value)
+                                                setTouched((prev) => ({ ...prev, dia_participacao: true }))
+                                            }}
+                                            className={`cursor-pointer relative flex flex-col items-center gap-1 rounded-lg border-2 p-3 text-center transition-all duration-200 ${esgotado
+                                                ? 'border-destructive/30 bg-destructive/5 opacity-60 cursor-not-allowed'
+                                                : formData.dia_participacao === opt.value
+                                                    ? 'border-primary bg-primary text-white shadow-lg shadow-primary/30 scale-[1.03]'
+                                                    : 'border-border bg-card hover:border-primary/30'
+                                                } ${errors.dia_participacao && touched.dia_participacao && !formData.dia_participacao ? 'border-destructive' : ''}`}
+                                        >
+                                            {esgotado && (
+                                                <span className="absolute -top-2 -right-2 rounded-full bg-destructive px-2 py-0.5 text-[10px] font-bold text-white shadow-sm">
+                                                    Esgotado
+                                                </span>
+                                            )}
+                                            {!esgotado && formData.dia_participacao === opt.value && (
+                                                <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full bg-white shadow-sm">
+                                                    <Check className="size-3 text-primary" />
+                                                </span>
+                                            )}
+                                            <CalendarDays className={`size-5 ${esgotado ? 'text-destructive/50' : formData.dia_participacao === opt.value ? 'text-white' : 'text-muted-foreground'
+                                                }`} />
+                                            <span className={`text-sm font-bold ${esgotado ? 'text-destructive/60' : formData.dia_participacao === opt.value ? 'text-white' : 'text-foreground'
+                                                }`}>{opt.label}</span>
+                                            <span className={`text-xs leading-tight ${esgotado ? 'text-destructive/40' : formData.dia_participacao === opt.value ? 'text-white/80' : 'text-muted-foreground'
+                                                }`}>{opt.sub}</span>
+                                            {vagas && !esgotado && restantes !== null && (
+                                                <span className={`text-[10px] font-medium mt-0.5 ${formData.dia_participacao === opt.value ? 'text-white/70' : 'text-primary/70'
+                                                    }`}>
+                                                    {restantes} {restantes === 1 ? 'vaga restante' : 'vagas restantes'}
+                                                </span>
+                                            )}
+                                            {esgotado && (
+                                                <span className="text-[10px] font-bold text-destructive mt-0.5">
+                                                    Vagas Esgotadas
+                                                </span>
+                                            )}
+                                        </button>
+                                    )
+                                })}
+                            </div>
+                            {touched.dia_participacao && <FieldError message={errors.dia_participacao} />}
                         </div>
 
                         {/* Submit */}

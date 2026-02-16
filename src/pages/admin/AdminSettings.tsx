@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Settings, Save, CheckCircle, AlertCircle, Calendar, MapPin, Clock, Type } from 'lucide-react'
+import { Settings, Save, CheckCircle, AlertCircle, Calendar, MapPin, Clock, Type, Users } from 'lucide-react'
 
 export function AdminSettings() {
     const { refreshSettings } = useSettings()
@@ -14,6 +14,8 @@ export function AdminSettings() {
         event_date: '',
         event_location: '',
         event_workload: '',
+        vagas_dia1: '',
+        vagas_dia2: '',
     })
     const [saving, setSaving] = useState(false)
     const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
@@ -25,6 +27,8 @@ export function AdminSettings() {
                 event_date: s.event_date || '',
                 event_location: s.event_location || '',
                 event_workload: s.event_workload || '',
+                vagas_dia1: s.vagas_dia1 || '500',
+                vagas_dia2: s.vagas_dia2 || '500',
             })
         }).catch(console.error)
     }, [])
@@ -77,6 +81,20 @@ export function AdminSettings() {
             icon: Clock,
             description: 'Quantidade de horas para o certificado e e-mail.',
         },
+        {
+            key: 'vagas_dia1',
+            label: 'Vagas — 1º Dia',
+            placeholder: 'Ex: 500',
+            icon: Users,
+            description: 'Limite máximo de inscrições para o 1º dia. Quem selecionar "Ambos" conta para os dois dias.',
+        },
+        {
+            key: 'vagas_dia2',
+            label: 'Vagas — 2º Dia',
+            placeholder: 'Ex: 500',
+            icon: Users,
+            description: 'Limite máximo de inscrições para o 2º dia. Quem selecionar "Ambos" conta para os dois dias.',
+        },
     ]
 
     return (
@@ -123,8 +141,8 @@ export function AdminSettings() {
 
                     {feedback && (
                         <div className={`flex items-center gap-2 rounded-lg px-4 py-3 text-sm ${feedback.type === 'success'
-                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                                : 'bg-red-50 text-red-700 border border-red-200'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : 'bg-red-50 text-red-700 border border-red-200'
                             }`}>
                             {feedback.type === 'success'
                                 ? <CheckCircle className="size-4" />
