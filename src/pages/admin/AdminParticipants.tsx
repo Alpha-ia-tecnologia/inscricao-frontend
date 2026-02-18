@@ -153,14 +153,14 @@ export function AdminParticipants() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-emerald-500/10 bg-gradient-to-br from-emerald-50 to-transparent">
+                <Card className="border-blue-500/10 bg-gradient-to-br from-blue-50 to-transparent">
                     <CardContent className="flex items-center gap-4 py-5">
-                        <div className="flex size-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 box-shadow-sm">
+                        <div className="flex size-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600 box-shadow-sm">
                             <UserCheck className="size-6" />
                         </div>
                         <div>
                             <p className="text-2xl font-bold text-foreground">{totalPresentes}</p>
-                            <p className="text-xs font-medium text-emerald-600/80 uppercase tracking-wide">Presentes</p>
+                            <p className="text-xs font-medium text-blue-600/80 uppercase tracking-wide">Presentes</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -186,7 +186,7 @@ export function AdminParticipants() {
                                 <Filter className="size-3.5" />
                                 Todos
                             </TabsTrigger>
-                            <TabsTrigger value="presentes" active={tab === 'presentes'} onClick={() => setTab('presentes')} className="data-[state=active]:text-emerald-600 data-[state=active]:bg-emerald-50/50">
+                            <TabsTrigger value="presentes" active={tab === 'presentes'} onClick={() => setTab('presentes')} className="data-[state=active]:text-blue-600 data-[state=active]:bg-blue-50/50">
                                 <CheckCircle2 className="size-3.5" />
                                 Presentes
                             </TabsTrigger>
@@ -243,7 +243,7 @@ export function AdminParticipants() {
                                         <TableRow key={p.id} className="hover:bg-muted/20 border-b border-border/40 transition-colors">
                                             <TableCell className="pl-6 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`flex size-10 items-center justify-center rounded-full font-bold text-sm shrink-0 transition-colors ${p.presente ? 'bg-emerald-100 text-emerald-600' : 'bg-primary/10 text-primary'
+                                                    <div className={`flex size-10 items-center justify-center rounded-full font-bold text-sm shrink-0 transition-colors ${p.presente ? 'bg-blue-100 text-blue-600' : 'bg-primary/10 text-primary'
                                                         }`}>
                                                         {p.nome.split(' ').map(n => n[0]).slice(0, 2).join('')}
                                                     </div>
@@ -268,7 +268,7 @@ export function AdminParticipants() {
                                             </TableCell>
                                             <TableCell>
                                                 {p.presente ? (
-                                                    <Badge variant="default" className="bg-emerald-500 hover:bg-emerald-600 gap-1 pl-1 pr-2">
+                                                    <Badge variant="default" className="bg-blue-500 hover:bg-blue-600 gap-1 pl-1 pr-2">
                                                         <CheckCircle2 className="size-3.5 text-white" />
                                                         Presente
                                                     </Badge>

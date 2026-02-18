@@ -141,12 +141,12 @@ export function AdminAvaliacoes() {
                 </Card>
 
                 {/* Taxa de Resposta */}
-                <Card className="relative overflow-hidden border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 via-card to-card shadow-sm hover:shadow-md transition-all group">
+                <Card className="relative overflow-hidden border-blue-500/20 bg-gradient-to-br from-blue-500/5 via-card to-card shadow-sm hover:shadow-md transition-all group">
                     <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <TrendingUp className="size-16 text-emerald-500" />
+                        <TrendingUp className="size-16 text-blue-500" />
                     </div>
                     <CardContent className="flex flex-col justify-between p-6 h-full">
-                        <div className="flex size-12 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-lg shadow-emerald-500/25 mb-4">
+                        <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-500 text-white shadow-lg shadow-blue-500/25 mb-4">
                             <TrendingUp className="size-6" />
                         </div>
                         <div>

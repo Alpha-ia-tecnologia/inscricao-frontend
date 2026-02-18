@@ -29,9 +29,9 @@ export function Hero() {
 
             {/* Floating decorations */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-20 -left-20 size-80 rounded-full bg-gold/10 blur-3xl animate-float" />
+                <div className="absolute -top-20 -left-20 size-80 rounded-full bg-cyan-400/10 blur-3xl animate-float" />
                 <div className="absolute -bottom-32 -right-20 size-96 rounded-full bg-white/5 blur-3xl animate-float-delayed" />
-                <div className="absolute top-1/4 right-10 size-40 rounded-full bg-gold/5 blur-2xl animate-float" />
+                <div className="absolute top-1/4 right-10 size-40 rounded-full bg-cyan-400/5 blur-2xl animate-float" />
             </div >
 
             <div className="relative z-10 mx-auto max-w-7xl px-6 py-12 lg:py-14 w-full">
@@ -47,32 +47,32 @@ export function Hero() {
 
                         <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
                             I Simpósio de<br />Educação de Tuntum
-                            <span className="block text-gold mt-1">2026</span>
+                            <span className="block text-cyan-300 mt-1">2026</span>
                         </h1>
 
                         <p className="max-w-lg text-lg text-white/80 leading-relaxed">
-                            <Sparkles className="inline size-4 text-gold mr-1" />
+                            <Sparkles className="inline size-4 text-cyan-300 mr-1" />
                             Seja muito bem-vindo(a) ao nosso evento! Este encontro foi preparado com carinho para promover reflexão, aprendizado e troca de experiências. Que estes dias sejam de inspiração, crescimento profissional e fortalecimento da nossa missão de educar.
                         </p>
 
                         {/* Info pills */}
                         <div className="flex flex-wrap gap-3">
                             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white/90">
-                                <Calendar className="size-4 text-gold" />
+                                <Calendar className="size-4 text-cyan-300" />
                                 25 e 26 Fev 2026
                             </span>
                             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white/90">
-                                <MapPin className="size-4 text-gold" />
+                                <MapPin className="size-4 text-cyan-300" />
                                 CT Centro de Treinamento Esportivo
                             </span>
                             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white/90">
-                                <Clock className="size-4 text-gold" />
+                                <Clock className="size-4 text-cyan-300" />
                                 2 dias de evento
                             </span>
                         </div>
 
                         {/* Impact phrase */}
-                        <p className="text-gold/90 italic text-sm font-medium border-l-2 border-gold/40 pl-4">
+                        <p className="text-cyan-200/90 italic text-sm font-medium border-l-2 border-cyan-400/40 pl-4">
                             "Educação é a tecnologia mais poderosa para transformar realidades."
                         </p>
 
@@ -80,7 +80,7 @@ export function Hero() {
                         <div className="flex flex-wrap gap-4 pt-2">
                             <Button
                                 size="xl"
-                                className="bg-gold text-primary-dark hover:bg-gold/90 gap-2 shadow-lg shadow-gold/30"
+                                className="bg-accent text-accent-foreground hover:bg-accent/90 gap-2 shadow-lg shadow-accent/30"
                                 onClick={openModal}
                             >
                                 <PenLine className="size-4" />
@@ -118,11 +118,11 @@ export function Hero() {
                                         <p className="text-xs text-white/60">Dias de Evento</p>
                                     </div>
                                     <div className="rounded-lg bg-white/10 p-3 text-center">
-                                        <Users className="size-5 text-gold mx-auto mb-1" />
+                                        <Users className="size-5 text-cyan-300 mx-auto mb-1" />
                                         <p className="text-xs text-white/60">Vagas Limitadas</p>
                                     </div>
                                     <div className="col-span-2 rounded-lg bg-white/10 p-3 text-center">
-                                        <p className="text-sm font-medium text-gold">✦ Educação 5.0</p>
+                                        <p className="text-sm font-medium text-cyan-300">✦ Educação 5.0</p>
                                         <p className="text-xs text-white/50 mt-0.5">Tecnologia, Humanização e Inovação</p>
                                     </div>
                                 </div>

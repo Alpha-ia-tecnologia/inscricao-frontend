@@ -116,9 +116,9 @@ export function AdminCertificates() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-transparent relative overflow-hidden group">
+                <Card className="border-green-500/20 bg-gradient-to-br from-green-500/5 to-transparent relative overflow-hidden group">
                     <CardContent className="flex flex-col gap-4 p-6 relative">
-                        <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+                        <div className="flex size-10 items-center justify-center rounded-xl bg-green-100 text-green-600">
                             <Mail className="size-5" />
                         </div>
                         <div>
@@ -127,9 +127,9 @@ export function AdminCertificates() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent relative overflow-hidden group">
+                <Card className="border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-transparent relative overflow-hidden group">
                     <CardContent className="flex flex-col gap-4 p-6 relative">
-                        <div className="flex size-10 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+                        <div className="flex size-10 items-center justify-center rounded-xl bg-cyan-100 text-cyan-600">
                             <AlertTriangle className="size-5" />
                         </div>
                         <div>
@@ -189,7 +189,7 @@ export function AdminCertificates() {
                         </div>
 
                         {generated && !isGenerating ? (
-                            <div className="flex items-center gap-3 rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-sm text-emerald-800">
+                            <div className="flex items-center gap-3 rounded-xl bg-blue-50 border border-blue-100 p-4 text-sm text-blue-800">
                                 <CheckCircle2 className="size-5 shrink-0" />
                                 <span className="font-medium">Certificados gerados e prontos para envio!</span>
                             </div>
@@ -249,12 +249,12 @@ export function AdminCertificates() {
                         </div>
 
                         {!generated ? (
-                            <div className="flex items-center gap-3 rounded-xl bg-amber-50 border border-amber-100 p-4 text-sm text-amber-800">
+                            <div className="flex items-center gap-3 rounded-xl bg-cyan-50 border border-cyan-100 p-4 text-sm text-cyan-800">
                                 <AlertTriangle className="size-5 shrink-0" />
                                 <span>Ação bloqueada: Gere os certificados primeiro.</span>
                             </div>
                         ) : sent && !isSending ? (
-                            <div className="flex items-center gap-3 rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-sm text-emerald-800">
+                            <div className="flex items-center gap-3 rounded-xl bg-blue-50 border border-blue-100 p-4 text-sm text-blue-800">
                                 <CheckCircle2 className="size-5 shrink-0" />
                                 <span className="font-medium">Envio concluído com sucesso!</span>
                             </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Spinner } from '@/components/ui/spinner'
-import { fetchStats } from '@/lib/api'
+import { fetchStats, fetchVagas } from '@/lib/api'
 import { useSettings } from '@/contexts/SettingsContext'
 import {
     Users,
@@ -20,14 +20,23 @@ interface StatsData {
     recentes: Array<{ nome: string; instituicao: string; cargo: string; data_inscricao: string }>
 }
 
+interface VagasData {
+    dia1: { total: number; max: number; disponivel: number }
+    dia2: { total: number; max: number; disponivel: number }
+}
+
 export function AdminDashboard() {
     const [stats, setStats] = useState<StatsData | null>(null)
+    const [vagas, setVagas] = useState<VagasData | null>(null)
     const [loading, setLoading] = useState(true)
     const { eventName } = useSettings()
 
     useEffect(() => {
-        fetchStats()
-            .then(setStats)
+        Promise.all([fetchStats(), fetchVagas()])
+            .then(([statsData, vagasData]) => {
+                setStats(statsData)
+                setVagas(vagasData)
+            })
             .catch((err) => console.error(err))
             .finally(() => setLoading(false))
     }, [])
@@ -40,7 +49,7 @@ export function AdminDashboard() {
         )
     }
 
-    if (!stats) {
+    if (!stats || !vagas) {
         return (
             <div className="p-8 text-center text-muted-foreground">
                 Erro ao carregar dados do dashboard
@@ -63,6 +72,59 @@ export function AdminDashboard() {
                 </div>
             </div>
 
+            {/* Vagas KPIs */}
+            <div className="grid gap-6 sm:grid-cols-2">
+                <Card className="relative overflow-hidden border-indigo-500/20 bg-gradient-to-br from-indigo-500/5 via-card to-card shadow-sm hover:shadow-md transition-all group">
+                    <CardContent className="p-6">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="font-display font-bold text-lg text-foreground">Vagas — 1º Dia</h3>
+                            <div className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 text-xs font-bold border border-indigo-500/10">
+                                {Math.round((vagas.dia1.total / vagas.dia1.max) * 100)}% Ocupado
+                            </div>
+                        </div>
+                        <div className="flex items-end gap-2 mb-2">
+                            <span className="text-3xl font-bold text-foreground">{vagas.dia1.total}</span>
+                            <span className="text-sm text-muted-foreground mb-1">/ {vagas.dia1.max} inscritos</span>
+                        </div>
+                        {/* Progress Bar */}
+                        <div className="h-2.5 w-full rounded-full bg-muted overflow-hidden">
+                            <div
+                                className="h-full rounded-full bg-indigo-500 transition-all duration-500"
+                                style={{ width: `${Math.min((vagas.dia1.total / vagas.dia1.max) * 100, 100)}%` }}
+                            />
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-2">
+                            {vagas.dia1.disponivel} vagas restantes
+                        </p>
+                    </CardContent>
+                </Card>
+
+                <Card className="relative overflow-hidden border-violet-500/20 bg-gradient-to-br from-violet-500/5 via-card to-card shadow-sm hover:shadow-md transition-all group">
+                    <CardContent className="p-6">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="font-display font-bold text-lg text-foreground">Vagas — 2º Dia</h3>
+                            <div className="px-2.5 py-0.5 rounded-full bg-violet-500/10 text-violet-500 text-xs font-bold border border-violet-500/10">
+                                {Math.round((vagas.dia2.total / vagas.dia2.max) * 100)}% Ocupado
+                            </div>
+                        </div>
+                        <div className="flex items-end gap-2 mb-2">
+                            <span className="text-3xl font-bold text-foreground">{vagas.dia2.total}</span>
+                            <span className="text-sm text-muted-foreground mb-1">/ {vagas.dia2.max} inscritos</span>
+                        </div>
+                        {/* Progress Bar */}
+                        <div className="h-2.5 w-full rounded-full bg-muted overflow-hidden">
+                            <div
+                                className="h-full rounded-full bg-violet-500 transition-all duration-500"
+                                style={{ width: `${Math.min((vagas.dia2.total / vagas.dia2.max) * 100, 100)}%` }}
+                            />
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-2">
+                            {vagas.dia2.disponivel} vagas restantes
+                        </p>
+                    </CardContent>
+                </Card>
+            </div>
+
             {/* Stats */}
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
                 <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-card to-card shadow-sm hover:shadow-md transition-all group">
@@ -80,19 +142,19 @@ export function AdminDashboard() {
                     </CardContent>
                 </Card>
 
-                <Card className="relative overflow-hidden border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 via-card to-card shadow-sm hover:shadow-md transition-all group">
+                <Card className="relative overflow-hidden border-blue-500/20 bg-gradient-to-br from-blue-500/5 via-card to-card shadow-sm hover:shadow-md transition-all group">
                     <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <UserCheck className="size-16 text-emerald-500" />
+                        <UserCheck className="size-16 text-blue-500" />
                     </div>
                     <CardContent className="flex flex-col justify-between p-6 h-full">
-                        <div className="flex size-12 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-lg shadow-emerald-500/25 mb-4">
+                        <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-500 text-white shadow-lg shadow-blue-500/25 mb-4">
                             <UserCheck className="size-6" />
                         </div>
                         <div>
                             <p className="text-4xl font-display font-bold text-foreground tracking-tight">{stats.presentes}</p>
                             <div className="flex items-center gap-2 mt-1">
                                 <p className="text-sm font-medium text-muted-foreground">Check-ins Realizados</p>
-                                <span className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded-full">
+                                <span className="text-xs font-semibold text-blue-600 bg-blue-100 px-1.5 py-0.5 rounded-full">
                                     {Math.round((stats.presentes / (stats.totalInscritos || 1)) * 100)}%
                                 </span>
                             </div>

@@ -89,7 +89,7 @@ export function About() {
 
                         {/* Decorative elements */}
                         <div className="absolute -z-10 top-1/2 -right-12 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-3xl opacity-50" />
-                        <div className="absolute -z-10 -bottom-12 -left-12 w-48 h-48 bg-gold/20 rounded-full blur-3xl opacity-50" />
+                        <div className="absolute -z-10 -bottom-12 -left-12 w-48 h-48 bg-accent/20 rounded-full blur-3xl opacity-50" />
                     </div>
                 </div>
             </div>

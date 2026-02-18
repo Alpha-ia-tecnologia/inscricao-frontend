@@ -1,4 +1,4 @@
-import { Leaf, Mail } from 'lucide-react'
+import { GraduationCap, Mail } from 'lucide-react'
 import { useSettings } from '@/contexts/SettingsContext'
 
 export function Footer() {
@@ -15,12 +15,18 @@ export function Footer() {
                     {/* Center: event */}
                     <div className="text-center">
                         <p className="text-sm font-medium text-foreground flex items-center gap-1.5 justify-center">
-                            <Leaf className="size-3.5 text-primary" />
+                            <GraduationCap className="size-3.5 text-primary" />
                             {eventName}
                         </p>
                         <p className="text-xs text-muted-foreground mt-0.5">
                             CT Centro de Treinamento Esportivo — Tuntum, MA
                         </p>
+                        <div className="flex items-center justify-center gap-2 mt-2">
+                            <img src="/images/logo-gestar.jpeg" alt="Instituto Gestar" className="h-8 w-auto rounded" />
+                            <p className="text-xs font-semibold text-primary">
+                                Organização: INSTITUTO GESTAR
+                            </p>
+                        </div>
                         <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1 justify-center">
                             <Mail className="size-3" />
                             institutogestar@instituto.gestarr

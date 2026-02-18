@@ -141,7 +141,7 @@ export function AdminSettings() {
 
                     {feedback && (
                         <div className={`flex items-center gap-2 rounded-lg px-4 py-3 text-sm ${feedback.type === 'success'
-                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            ? 'bg-blue-50 text-blue-700 border border-blue-200'
                             : 'bg-red-50 text-red-700 border border-red-200'
                             }`}>
                             {feedback.type === 'success'

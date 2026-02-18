@@ -10,33 +10,33 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-display: 'Playfair Display', Georgia, serif;
 
-  /* ── Colors: Tuntum-MA Identity ── */
-  /* Verde Babaçu (Mata dos Cocais) */
-  --color-primary: #065f46;
+  /* ── Colors: Simpósio de Educação de Tuntum ── */
+  /* Azul Principal (Banner) */
+  --color-primary: #3B6FCB;
   --color-primary-foreground: #ffffff;
 
-  /* Azul Institucional */
-  --color-secondary: #1e3a5f;
+  /* Azul Escuro (Textos/Cabeçalhos) */
+  --color-secondary: #1E3A6E;
   --color-secondary-foreground: #ffffff;
 
-  /* Dourado Terra */
-  --color-accent: #d4a853;
-  --color-accent-foreground: #1a1a1a;
+  /* Ciano/Teal (Destaques luminosos) */
+  --color-accent: #00BCD4;
+  --color-accent-foreground: #0a2540;
 
   /* Surfaces */
-  --color-background: #f8faf8;
-  --color-foreground: #1a2e1a;
+  --color-background: #EEF1FA;
+  --color-foreground: #1a2340;
   --color-card: #ffffff;
-  --color-card-foreground: #1a2e1a;
-  --color-muted: #f0f4f0;
-  --color-muted-foreground: #6b7a6b;
-  --color-border: #d4ddd4;
-  --color-input: #c8d5c8;
-  --color-ring: #065f46;
+  --color-card-foreground: #1a2340;
+  --color-muted: #e8ecf6;
+  --color-muted-foreground: #64748b;
+  --color-border: #cbd5e8;
+  --color-input: #bcc8e0;
+  --color-ring: #3B6FCB;
 
   /* Semantic */
   --color-destructive: #dc2626;
-  --color-success: #059669;
+  --color-success: #3B6FCB;
 
   /* ── Spacing & Radius ── */
   --radius-sm: 0.375rem;
@@ -134,7 +134,7 @@ body {
 /* ── Custom Select Styling ── */
 select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7a6b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
   background-size: 1.5em 1.5em;

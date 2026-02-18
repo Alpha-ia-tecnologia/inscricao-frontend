@@ -55,7 +55,7 @@ export function AdminLogin() {
 
                     <h1 className="font-display text-5xl font-bold leading-tight">
                         Gestão da <br />
-                        <span className="text-gold">Jornada Pedagógica</span>
+                        <span className="text-cyan-300">Jornada Pedagógica</span>
                     </h1>
 
                     <p className="text-lg text-white/80 leading-relaxed">
