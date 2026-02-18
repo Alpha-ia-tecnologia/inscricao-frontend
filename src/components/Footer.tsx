@@ -1,8 +1,6 @@
-import { GraduationCap, Mail } from 'lucide-react'
-import { useSettings } from '@/contexts/SettingsContext'
+import { Mail } from 'lucide-react'
 
 export function Footer() {
-    const { eventName } = useSettings()
     return (
         <footer className="border-t border-border bg-card py-10">
             <div className="mx-auto max-w-6xl px-6">
@@ -12,25 +10,20 @@ export function Footer() {
                         <img src="/images/logo-semed.png" alt="SEMED / Prefeitura de Tuntum" className="h-14 w-auto" />
                     </div>
 
-                    {/* Center: event */}
+                    {/* Center: Instituto Gestar */}
                     <div className="text-center">
-                        <p className="text-sm font-medium text-foreground flex items-center gap-1.5 justify-center">
-                            <GraduationCap className="size-3.5 text-primary" />
-                            {eventName}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-0.5">
-                            CT Centro de Treinamento Esportivo — Tuntum, MA
-                        </p>
-                        <div className="flex items-center justify-center gap-2 mt-2">
-                            <img src="/images/logo-gestar.jpeg" alt="Instituto Gestar" className="h-8 w-auto rounded" />
-                            <p className="text-xs font-semibold text-primary">
-                                Organização: INSTITUTO GESTAR
-                            </p>
+                        <div className="flex items-center justify-center gap-3">
+                            <img src="/images/logo-gestar.jpeg" alt="Instituto Gestar" className="h-14 w-auto rounded" />
+                            <div>
+                                <p className="text-sm font-semibold text-primary">
+                                    Organização: INSTITUTO GESTAR
+                                </p>
+                                <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1 justify-center">
+                                    <Mail className="size-3" />
+                                    institutogestar@instituto.gestarr
+                                </p>
+                            </div>
                         </div>
-                        <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1 justify-center">
-                            <Mail className="size-3" />
-                            institutogestar@instituto.gestarr
-                        </p>
                     </div>
 
                     {/* Right: copyright */}
