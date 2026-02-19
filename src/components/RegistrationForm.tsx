@@ -412,6 +412,7 @@ function RegistrationFormInner({ showSuccess, closeModal, setShowSuccess, eventN
                                     {[
                                         { value: 'dia1', label: '1º Dia', sub: 'Gestores, Coordenadores e Equipe Técnica da SEMED' },
                                         { value: 'dia2', label: '2º Dia', sub: 'Professores, Gestores, Coordenadores e Equipe da SEMED' },
+                                        { value: 'ambos', label: 'Ambos', sub: 'Participação nos dois dias do evento' },
                                     ].map((opt) => {
                                         const diaKey = opt.value as 'dia1' | 'dia2' | 'ambos'
                                         let esgotado = false
