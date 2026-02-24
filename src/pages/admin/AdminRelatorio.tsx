@@ -16,8 +16,8 @@ interface ReportData {
         dia1: { total: number; max: number }
         dia2: { total: number; max: number }
     }
-    porInstituicao: Array<{ name: string; count: number }>
-    porCargo: Array<{ name: string; count: number }>
+    porInstituicao: Array<{ name: string; variants: string[]; count: number }>
+    porCargo: Array<{ name: string; variants: string[]; count: number }>
     porDia: Array<{ name: string; count: number }>
     certificadosGerados: number
     certificadosEnviados: number
@@ -117,14 +117,15 @@ export function AdminRelatorio() {
 
 <div class="two-col">
 <div>
-  <h2>🏫 Por Instituição</h2>
+  <h2>🏫 Por Instituição (agrupado)</h2>
   ${data.porInstituicao.map(i => {
             const pct = Math.round((i.count / (data.totalInscritos || 1)) * 100)
-            return `<div class="bar-row"><span class="bar-label">${i.name}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.max(pct, 5)}%">${i.count}</div></div></div>`
+            const variantInfo = i.variants && i.variants.length > 1 ? ` (${i.variants.length} variações)` : ''
+            return `<div class="bar-row"><span class="bar-label" title="${(i.variants || []).join('\n')}">${i.name}${variantInfo}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.max(pct, 5)}%">${i.count}</div></div></div>`
         }).join('')}
 </div>
 <div>
-  <h2>💼 Por Cargo/Função</h2>
+  <h2>💼 Por Cargo/Função (agrupado)</h2>
   ${data.porCargo.map(c => {
             const pct = Math.round((c.count / (data.totalInscritos || 1)) * 100)
             return `<div class="bar-row"><span class="bar-label">${c.name}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.max(pct, 5)}%">${c.count}</div></div></div>`
@@ -322,7 +323,7 @@ ${data.participantes.map((p, i) => `<tr>
                     <CardHeader className="pb-3">
                         <CardTitle className="text-base flex items-center gap-2">
                             <Building2 className="size-4 text-primary" />
-                            Por Instituição
+                            Por Instituição (agrupado)
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
@@ -330,10 +331,17 @@ ${data.participantes.map((p, i) => `<tr>
                             <p className="text-sm text-muted-foreground text-center py-4">Nenhum dado</p>
                         ) : (
                             data.porInstituicao.map((inst, i) => (
-                                <div key={i} className="space-y-1.5">
+                                <div key={i} className="space-y-1.5" title={inst.variants?.join('\n')}>
                                     <div className="flex items-center justify-between text-sm">
-                                        <span className="text-foreground font-medium truncate pr-4">{inst.name}</span>
-                                        <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">{inst.count}</span>
+                                        <div className="flex items-center gap-2 truncate pr-4">
+                                            <span className="text-foreground font-medium truncate">{inst.name}</span>
+                                            {inst.variants && inst.variants.length > 1 && (
+                                                <span className="text-[10px] font-medium text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full border border-amber-200 shrink-0">
+                                                    {inst.variants.length} variações
+                                                </span>
+                                            )}
+                                        </div>
+                                        <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded shrink-0">{inst.count}</span>
                                     </div>
                                     <div className="h-2 w-full rounded-full bg-muted/50 overflow-hidden">
                                         <div className="h-full rounded-full bg-gradient-to-r from-primary to-primary/60" style={{ width: `${(inst.count / maxInst) * 100}%` }} />
