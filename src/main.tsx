@@ -11,6 +11,7 @@ import { AdminSettings } from '@/pages/admin/AdminSettings'
 import { AdminAvaliacoes } from '@/pages/admin/AdminAvaliacoes'
 import { AdminUsers } from '@/pages/admin/AdminUsers'
 import { AvaliacaoPage } from '@/pages/AvaliacaoPage'
+import { CheckinPage } from '@/pages/CheckinPage'
 import { SettingsProvider } from '@/contexts/SettingsContext'
 import './index.css'
 
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: '/avaliacao',
     element: <AvaliacaoPage />,
+  },
+  {
+    path: '/checkin',
+    element: <CheckinPage />,
   },
   {
     path: '/admin',

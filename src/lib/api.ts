@@ -35,6 +35,17 @@ export async function fetchVagas(): Promise<{
     return res.json()
 }
 
+export async function confirmCheckin(cpf: string, dia: string): Promise<{ nome: string; message: string; already: boolean }> {
+    const res = await fetch(`${API_URL}/inscricoes/checkin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cpf, dia }),
+    })
+    const json = await res.json()
+    if (!res.ok) throw new Error(json.error || 'Erro ao confirmar presença')
+    return json
+}
+
 // ── Auth ──
 
 export async function adminLogin(email: string, senha: string) {

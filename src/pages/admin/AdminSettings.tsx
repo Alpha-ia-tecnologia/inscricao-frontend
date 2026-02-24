@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { fetchSettings, updateSettings } from '@/lib/api'
 import { useSettings } from '@/contexts/SettingsContext'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Settings, Save, CheckCircle, AlertCircle, Calendar, MapPin, Clock, Type, Users } from 'lucide-react'
+import { Settings, Save, CheckCircle, AlertCircle, Calendar, MapPin, Clock, Type, Users, QrCode, Download } from 'lucide-react'
+import { QRCodeSVG } from 'qrcode.react'
 
 export function AdminSettings() {
     const { refreshSettings } = useSettings()
@@ -50,6 +51,32 @@ export function AdminSettings() {
         } finally {
             setSaving(false)
         }
+    }
+
+    const checkinUrl = `${window.location.origin}/checkin`
+    const qrRef = useRef<HTMLDivElement>(null)
+
+    function downloadQR() {
+        const svg = qrRef.current?.querySelector('svg')
+        if (!svg) return
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        if (!ctx) return
+        const size = 1024
+        canvas.width = size
+        canvas.height = size
+        const svgData = new XMLSerializer().serializeToString(svg)
+        const img = new Image()
+        img.onload = () => {
+            ctx.fillStyle = '#ffffff'
+            ctx.fillRect(0, 0, size, size)
+            ctx.drawImage(img, 0, 0, size, size)
+            const a = document.createElement('a')
+            a.download = 'qrcode-checkin.png'
+            a.href = canvas.toDataURL('image/png')
+            a.click()
+        }
+        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)))
     }
 
     const fields = [
@@ -159,6 +186,42 @@ export function AdminSettings() {
                     >
                         <Save className="size-4" />
                         {saving ? 'Salvando...' : 'Salvar Alterações'}
+                    </Button>
+                </CardContent>
+            </Card>
+
+            {/* QR Code Card */}
+            <Card className="max-w-2xl border-border/60 shadow-sm">
+                <CardHeader>
+                    <CardTitle className="text-lg flex items-center gap-2">
+                        <QrCode className="size-5 text-primary" />
+                        QR Code — Check-in de Presença
+                    </CardTitle>
+                    <CardDescription>
+                        Imprima este QR Code e disponibilize no local do evento. Os participantes poderão escanear
+                        para confirmar presença automaticamente.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    <div className="flex flex-col items-center gap-4">
+                        <div ref={qrRef} className="rounded-xl bg-white p-6 shadow-md border border-border/40">
+                            <QRCodeSVG
+                                value={checkinUrl}
+                                size={220}
+                                level="H"
+                                includeMargin={false}
+                                bgColor="#ffffff"
+                                fgColor="#1E3A6E"
+                            />
+                        </div>
+                        <p className="text-xs text-muted-foreground text-center break-all max-w-xs">
+                            {checkinUrl}
+                        </p>
+                    </div>
+
+                    <Button onClick={downloadQR} variant="outline" className="w-full gap-2">
+                        <Download className="size-4" />
+                        Baixar QR Code (PNG)
                     </Button>
                 </CardContent>
             </Card>
