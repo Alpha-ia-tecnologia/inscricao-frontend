@@ -62,17 +62,122 @@ export function AdminSettings() {
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
         if (!ctx) return
-        const size = 1024
-        canvas.width = size
-        canvas.height = size
+
+        const W = 1200
+        const H = 1700
+        canvas.width = W
+        canvas.height = H
+
         const svgData = new XMLSerializer().serializeToString(svg)
         const img = new Image()
         img.onload = () => {
+            // ── Background ──
+            const grad = ctx.createLinearGradient(0, 0, W, H)
+            grad.addColorStop(0, '#1E3A6E')
+            grad.addColorStop(0.5, '#3B6FCB')
+            grad.addColorStop(1, '#00BCD4')
+            ctx.fillStyle = grad
+            ctx.fillRect(0, 0, W, H)
+
+            // ── Header ──
             ctx.fillStyle = '#ffffff'
-            ctx.fillRect(0, 0, size, size)
-            ctx.drawImage(img, 0, 0, size, size)
+            ctx.font = 'bold 52px Inter, system-ui, sans-serif'
+            ctx.textAlign = 'center'
+            ctx.fillText(form.event_name || 'Jornada Pedagógica 2026', W / 2, 100)
+
+            ctx.font = '36px Inter, system-ui, sans-serif'
+            ctx.fillStyle = 'rgba(255,255,255,0.8)'
+            ctx.fillText('CONFIRMAÇÃO DE PRESENÇA', W / 2, 160)
+
+            // ── Divider line ──
+            ctx.strokeStyle = 'rgba(255,255,255,0.3)'
+            ctx.lineWidth = 2
+            ctx.beginPath()
+            ctx.moveTo(200, 200)
+            ctx.lineTo(W - 200, 200)
+            ctx.stroke()
+
+            // ── QR Code white box ──
+            const qrSize = 520
+            const qrBoxPad = 40
+            const qrBoxX = (W - qrSize - qrBoxPad * 2) / 2
+            const qrBoxY = 250
+            const boxW = qrSize + qrBoxPad * 2
+            const boxH = qrSize + qrBoxPad * 2
+
+            // Rounded rect
+            const r = 24
+            ctx.fillStyle = '#ffffff'
+            ctx.beginPath()
+            ctx.moveTo(qrBoxX + r, qrBoxY)
+            ctx.lineTo(qrBoxX + boxW - r, qrBoxY)
+            ctx.quadraticCurveTo(qrBoxX + boxW, qrBoxY, qrBoxX + boxW, qrBoxY + r)
+            ctx.lineTo(qrBoxX + boxW, qrBoxY + boxH - r)
+            ctx.quadraticCurveTo(qrBoxX + boxW, qrBoxY + boxH, qrBoxX + boxW - r, qrBoxY + boxH)
+            ctx.lineTo(qrBoxX + r, qrBoxY + boxH)
+            ctx.quadraticCurveTo(qrBoxX, qrBoxY + boxH, qrBoxX, qrBoxY + boxH - r)
+            ctx.lineTo(qrBoxX, qrBoxY + r)
+            ctx.quadraticCurveTo(qrBoxX, qrBoxY, qrBoxX + r, qrBoxY)
+            ctx.closePath()
+            ctx.fill()
+
+            // Shadow effect
+            ctx.shadowColor = 'rgba(0,0,0,0.2)'
+            ctx.shadowBlur = 30
+            ctx.fill()
+            ctx.shadowColor = 'transparent'
+
+            // Draw QR
+            ctx.drawImage(img, qrBoxX + qrBoxPad, qrBoxY + qrBoxPad, qrSize, qrSize)
+
+            // ── "Escaneie o QR Code" text ──
+            const instrY = qrBoxY + boxH + 60
+            ctx.fillStyle = '#ffffff'
+            ctx.font = 'bold 44px Inter, system-ui, sans-serif'
+            ctx.textAlign = 'center'
+            ctx.fillText('📱 Escaneie o QR Code', W / 2, instrY)
+
+            // ── Instructions ──
+            const steps = [
+                { num: '1', text: 'Abra a câmera do celular e aponte para o QR Code' },
+                { num: '2', text: 'Selecione o dia de formação (Dia 1 ou Dia 2)' },
+                { num: '3', text: 'Digite seu CPF e confirme sua presença' },
+            ]
+
+            let stepY = instrY + 60
+            steps.forEach((s) => {
+                // Circle with number
+                const circleX = 200
+                ctx.fillStyle = 'rgba(255,255,255,0.2)'
+                ctx.beginPath()
+                ctx.arc(circleX, stepY + 20, 30, 0, Math.PI * 2)
+                ctx.fill()
+
+                ctx.fillStyle = '#ffffff'
+                ctx.font = 'bold 30px Inter, system-ui, sans-serif'
+                ctx.textAlign = 'center'
+                ctx.fillText(s.num, circleX, stepY + 32)
+
+                // Step text
+                ctx.fillStyle = 'rgba(255,255,255,0.9)'
+                ctx.font = '30px Inter, system-ui, sans-serif'
+                ctx.textAlign = 'left'
+                ctx.fillText(s.text, circleX + 50, stepY + 32)
+
+                stepY += 80
+            })
+
+            // ── Footer ──
+            ctx.fillStyle = 'rgba(255,255,255,0.4)'
+            ctx.font = '24px Inter, system-ui, sans-serif'
+            ctx.textAlign = 'center'
+            ctx.fillText('Sua presença é confirmada automaticamente!', W / 2, H - 120)
+            ctx.font = '20px Inter, system-ui, sans-serif'
+            ctx.fillStyle = 'rgba(255,255,255,0.3)'
+            ctx.fillText(checkinUrl, W / 2, H - 70)
+
             const a = document.createElement('a')
-            a.download = 'qrcode-checkin.png'
+            a.download = 'qrcode-checkin-instrucoes.png'
             a.href = canvas.toDataURL('image/png')
             a.click()
         }
