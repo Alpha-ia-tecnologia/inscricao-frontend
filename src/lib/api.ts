@@ -95,6 +95,12 @@ export function getExportCSVUrl(): string {
     return `${API_URL}/inscricoes/export`
 }
 
+export async function fetchRelatorio() {
+    const res = await fetch(`${API_URL}/inscricoes/relatorio`, { headers: authHeaders() })
+    if (res.status === 401) { adminLogout(); throw new Error('Sessão expirada') }
+    return res.json()
+}
+
 export async function deleteInscricao(id: number) {
     const res = await fetch(`${API_URL}/inscricoes/${id}`, {
         method: 'DELETE',

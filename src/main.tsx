@@ -9,6 +9,7 @@ import { AdminParticipants } from '@/pages/admin/AdminParticipants'
 import { AdminCertificates } from '@/pages/admin/AdminCertificates'
 import { AdminSettings } from '@/pages/admin/AdminSettings'
 import { AdminAvaliacoes } from '@/pages/admin/AdminAvaliacoes'
+import { AdminRelatorio } from '@/pages/admin/AdminRelatorio'
 import { AdminUsers } from '@/pages/admin/AdminUsers'
 import { AvaliacaoPage } from '@/pages/AvaliacaoPage'
 import { CheckinPage } from '@/pages/CheckinPage'
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: 'avaliacoes',
         element: <AdminAvaliacoes />,
+      },
+      {
+        path: 'relatorio',
+        element: <AdminRelatorio />,
       },
       {
         path: 'usuarios',
