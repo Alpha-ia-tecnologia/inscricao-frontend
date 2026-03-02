@@ -13,6 +13,7 @@ import {
     Star,
     UserCog,
     FileText,
+    ClipboardList,
 } from 'lucide-react'
 import { useEffect } from 'react'
 
@@ -22,6 +23,7 @@ const navItems = [
     { path: '/admin/certificados', label: 'Certificados', icon: Award },
     { path: '/admin/avaliacoes', label: 'Avaliações', icon: Star },
     { path: '/admin/relatorio', label: 'Relatório', icon: FileText },
+    { path: '/admin/relatorio-avaliacoes', label: 'Rel. Avaliações', icon: ClipboardList },
     { path: '/admin/usuarios', label: 'Usuários', icon: UserCog },
     { path: '/admin/configuracoes', label: 'Configurações', icon: Settings },
 ]

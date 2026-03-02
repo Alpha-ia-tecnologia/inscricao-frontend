@@ -10,6 +10,7 @@ import { AdminCertificates } from '@/pages/admin/AdminCertificates'
 import { AdminSettings } from '@/pages/admin/AdminSettings'
 import { AdminAvaliacoes } from '@/pages/admin/AdminAvaliacoes'
 import { AdminRelatorio } from '@/pages/admin/AdminRelatorio'
+import { AdminRelatorioAvaliacoes } from '@/pages/admin/AdminRelatorioAvaliacoes'
 import { AdminUsers } from '@/pages/admin/AdminUsers'
 import { AvaliacaoPage } from '@/pages/AvaliacaoPage'
 import { CheckinPage } from '@/pages/CheckinPage'
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: 'relatorio',
         element: <AdminRelatorio />,
+      },
+      {
+        path: 'relatorio-avaliacoes',
+        element: <AdminRelatorioAvaliacoes />,
       },
       {
         path: 'usuarios',

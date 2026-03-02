@@ -192,6 +192,12 @@ export function getAvaliacoesExportUrl(): string {
     return `${API_URL}/avaliacoes/export`
 }
 
+export async function fetchAvaliacoesRelatorio() {
+    const res = await fetch(`${API_URL}/avaliacoes/relatorio-detalhado`, { headers: authHeaders() })
+    if (res.status === 401) { adminLogout(); throw new Error('Sessão expirada') }
+    return res.json()
+}
+
 // ── Admin: Usuários ──
 
 export async function fetchAdmins() {
