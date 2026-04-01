@@ -38,7 +38,7 @@ export function CertificadoConsulta() {
         setResult(null)
 
         if (!validateCPF(cpf)) {
-            setError('CPF inv\u00E1lido. Verifique os d\u00EDgitos informados.')
+            setError('CPF inválido. Verifique os dígitos informados.')
             return
         }
 
@@ -85,7 +85,7 @@ export function CertificadoConsulta() {
                             Consultar Certificado
                         </h2>
                         <p className="text-white/75 text-center max-w-md mx-auto mb-8 leading-relaxed">
-                            Informe seu CPF para verificar sua participa\u00E7\u00E3o e baixar seu certificado.
+                            Informe seu CPF para verificar sua participação e baixar seu certificado.
                         </p>
 
                         {/* Search form */}
@@ -131,7 +131,7 @@ export function CertificadoConsulta() {
                                                 <XCircle className="size-6 text-red-300" />
                                             </div>
                                             <div>
-                                                <p className="font-semibold text-white text-sm">Inscri\u00E7\u00E3o n\u00E3o encontrada</p>
+                                                <p className="font-semibold text-white text-sm">Inscrição não encontrada</p>
                                                 <p className="text-white/65 text-xs mt-0.5">{result.message}</p>
                                             </div>
                                         </CardContent>
@@ -146,10 +146,10 @@ export function CertificadoConsulta() {
                                             </div>
                                             <div>
                                                 <p className="font-semibold text-white text-sm">
-                                                    Presen\u00E7a n\u00E3o confirmada
+                                                    Presença não confirmada
                                                 </p>
                                                 <p className="text-white/65 text-xs mt-0.5">
-                                                    Ol\u00E1, <strong className="text-white/85">{result.nome}</strong>. {result.message}
+                                                    Olá, <strong className="text-white/85">{result.nome}</strong>. {result.message}
                                                 </p>
                                             </div>
                                         </CardContent>
@@ -165,8 +165,8 @@ export function CertificadoConsulta() {
                                                     <CheckCircle2 className="size-6 text-emerald-300" />
                                                 </div>
                                                 <div>
-                                                    <p className="font-semibold text-white text-sm">Participa\u00E7\u00E3o confirmada!</p>
-                                                    <p className="text-white/65 text-xs">Seu certificado est\u00E1 pronto para download.</p>
+                                                    <p className="font-semibold text-white text-sm">Participação confirmada!</p>
+                                                    <p className="text-white/65 text-xs">Seu certificado está pronto para download.</p>
                                                 </div>
                                             </div>
 

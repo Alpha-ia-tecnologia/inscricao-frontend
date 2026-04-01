@@ -10,6 +10,7 @@ import {
     PenLine,
     ArrowRight,
     Sparkles,
+    Award,
 } from 'lucide-react'
 
 export function Hero() {
@@ -90,10 +91,10 @@ export function Hero() {
                                 size="lg"
                                 variant="outline"
                                 className="bg-transparent border-white/30 text-white hover:bg-white/10 gap-2"
-                                onClick={() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' })}
+                                onClick={() => document.getElementById('certificado')?.scrollIntoView({ behavior: 'smooth' })}
                             >
-                                Saiba Mais
-                                <ArrowRight className="size-4" />
+                                <Award className="size-4" />
+                                Meu Certificado
                             </Button>
                         </div>
                     </div>
