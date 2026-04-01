@@ -8,7 +8,6 @@ import {
     Clock,
     Users,
     PenLine,
-    ArrowRight,
     Sparkles,
     Award,
 } from 'lucide-react'
