@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { useRegistrationModal } from '@/hooks/use-registration-modal'
-import { Menu, X, PenLine, Lock, Star } from 'lucide-react'
+import { Menu, X, PenLine, Lock, Star, Award } from 'lucide-react'
 
 export function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false)
@@ -11,6 +11,7 @@ export function Navbar() {
         { href: '#sobre', label: 'Sobre' },
         { href: '#programacao', label: 'Programação' },
         { href: '#inscricao', label: 'Inscrição' },
+        { href: '#certificado', label: 'Certificado' },
     ]
 
     return (

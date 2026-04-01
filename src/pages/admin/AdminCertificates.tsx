@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Spinner } from '@/components/ui/spinner'
-import { fetchCertificadosStats, gerarCertificados, enviarCertificados } from '@/lib/api'
+import { fetchCertificadosStats, gerarCertificados, enviarCertificados, baixarModeloCertificado } from '@/lib/api'
 import { useSettings } from '@/contexts/SettingsContext'
 import {
     Award,
@@ -12,6 +12,8 @@ import {
     Mail,
     FileText,
     AlertTriangle,
+    Eye,
+    Download,
 } from 'lucide-react'
 
 interface CertStats {
@@ -31,6 +33,7 @@ export function AdminCertificates() {
     const [generated, setGenerated] = useState(false)
     const [sent, setSent] = useState(false)
     const [message, setMessage] = useState('')
+    const [isDownloadingModel, setIsDownloadingModel] = useState(false)
 
     useEffect(() => {
         loadStats()
@@ -59,6 +62,19 @@ export function AdminCertificates() {
             setMessage(err instanceof Error ? err.message : 'Erro ao gerar')
         } finally {
             setIsGenerating(false)
+        }
+    }
+
+    async function handleDownloadModel() {
+        setIsDownloadingModel(true)
+        setMessage('')
+        try {
+            await baixarModeloCertificado()
+            setMessage('Modelo de certificado baixado com sucesso!')
+        } catch (err: unknown) {
+            setMessage(err instanceof Error ? err.message : 'Erro ao baixar modelo')
+        } finally {
+            setIsDownloadingModel(false)
         }
     }
 
@@ -150,6 +166,42 @@ export function AdminCertificates() {
                 </div>
             )}
 
+            {/* Model Preview */}
+            <Card className="border-amber-500/20 bg-gradient-to-r from-amber-50/80 to-transparent shadow-md">
+                <CardContent className="flex flex-col sm:flex-row items-center justify-between gap-4 p-6">
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 bg-amber-100 rounded-xl text-amber-600">
+                            <Eye className="size-6" />
+                        </div>
+                        <div>
+                            <p className="font-semibold text-foreground">Modelo de Certificado</p>
+                            <p className="text-sm text-muted-foreground">
+                                Baixe um PDF de exemplo com dados fictícios para validar o layout antes de gerar em lote.
+                                Carga horária: <strong>16 horas</strong>.
+                            </p>
+                        </div>
+                    </div>
+                    <Button
+                        variant="outline"
+                        className="gap-2 border-amber-300 text-amber-700 hover:bg-amber-100 hover:text-amber-800 shrink-0 font-semibold"
+                        onClick={handleDownloadModel}
+                        disabled={isDownloadingModel}
+                    >
+                        {isDownloadingModel ? (
+                            <>
+                                <Spinner />
+                                Gerando...
+                            </>
+                        ) : (
+                            <>
+                                <Download className="size-4" />
+                                Baixar Modelo PDF
+                            </>
+                        )}
+                    </Button>
+                </CardContent>
+            </Card>
+
             {/* Actions */}
             <div className="grid gap-8 lg:grid-cols-2">
                 {/* Generate */}
@@ -175,11 +227,11 @@ export function AdminCertificates() {
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="size-1.5 rounded-full bg-primary/60"></div>
-                                    <span>Carga Horária: 40h</span>
+                                    <span>Carga Horária: 16h</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="size-1.5 rounded-full bg-primary/60"></div>
-                                    <span>Autenticação Digital</span>
+                                    <span>Logo SEMED + Brasão</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="size-1.5 rounded-full bg-primary/60"></div>

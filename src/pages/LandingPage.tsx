@@ -3,6 +3,7 @@ import { Hero } from '@/components/Hero'
 import { About } from '@/components/About'
 import { Schedule } from '@/components/Schedule'
 import { RegistrationCTA, RegistrationModal } from '@/components/RegistrationForm'
+import { CertificadoConsulta } from '@/components/CertificadoConsulta'
 import { AvaliacaoCTA } from '@/components/AvaliacaoCTA'
 import { Footer } from '@/components/Footer'
 import { RegistrationModalProvider } from '@/hooks/use-registration-modal'
@@ -15,6 +16,7 @@ export function LandingPage() {
             <About />
             <Schedule />
             <RegistrationCTA />
+            <CertificadoConsulta />
             <AvaliacaoCTA />
             <Footer />
             {/* Global modal overlay */}

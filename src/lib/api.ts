@@ -136,10 +136,63 @@ export async function enviarCertificados() {
     return json
 }
 
+export async function baixarModeloCertificado() {
+    const res = await fetch(`${API_URL}/certificados/modelo`, {
+        headers: { ...(getToken() ? { Authorization: `Bearer ${getToken()}` } : {}) },
+    })
+    if (res.status === 401) { adminLogout(); throw new Error('Sessão expirada') }
+    if (!res.ok) throw new Error('Erro ao gerar modelo de certificado')
+    const blob = await res.blob()
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'modelo_certificado.pdf'
+    a.click()
+    window.URL.revokeObjectURL(url)
+}
+
 export async function fetchCertificadosStats() {
     const res = await fetch(`${API_URL}/certificados/stats`, { headers: authHeaders() })
     if (res.status === 401) { adminLogout(); throw new Error('Sessão expirada') }
     return res.json()
+}
+
+// ── Public: Certificado por CPF ──
+
+export interface ConsultaCertificado {
+    status: 'not_found' | 'no_presence' | 'eligible'
+    nome?: string
+    cargo?: string
+    instituicao?: string
+    dia_participacao?: string
+    message: string
+}
+
+export async function consultarCertificado(cpf: string): Promise<ConsultaCertificado> {
+    const res = await fetch(`${API_URL}/certificados/consulta`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cpf }),
+    })
+    const json = await res.json()
+    if (!res.ok) throw new Error(json.error || 'Erro ao consultar certificado')
+    return json
+}
+
+export async function downloadCertificado(cpf: string) {
+    const cpfClean = cpf.replace(/\D/g, '')
+    const res = await fetch(`${API_URL}/certificados/download/${cpfClean}`)
+    if (!res.ok) {
+        const json = await res.json().catch(() => ({ error: 'Erro ao baixar certificado' }))
+        throw new Error(json.error || 'Erro ao baixar certificado')
+    }
+    const blob = await res.blob()
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'certificado.pdf'
+    a.click()
+    window.URL.revokeObjectURL(url)
 }
 
 // ── Settings ──
